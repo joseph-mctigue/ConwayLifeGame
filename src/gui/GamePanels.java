@@ -22,9 +22,9 @@ public class GamePanels {
 	
 	List<ArrayList<Boolean>> biDirectionalMemoryRows = new ArrayList<>();
 		
-	final Icon live=new ImageIcon("C:\\Users\\Joseph\\Desktop\\kata\\live_cell.jpg");
-	final Icon dead=new ImageIcon("C:\\Users\\Joseph\\Desktop\\kata\\dead_cell.jpg");
-	
+	final Icon live = new ImageIcon(this.getClass().getResource("/Resources/live_cell.jpg"));
+	final Icon dead = new ImageIcon(this.getClass().getResource("/Resources/dead_cell.jpg"));
+		
 	JPanel panel;
 	JButton[] btns;
 	JButton stepForewardBtn, stepBackwardBtn, resetBtn;
@@ -33,7 +33,7 @@ public class GamePanels {
 	
 	public void gamePanel(Container pane) {
 	
-		Insets i = new Insets(0,0,0,0);
+		Insets i = new Insets(5,0,0,0);
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		
@@ -77,6 +77,7 @@ public class GamePanels {
 			btns[x] = new JButton( live );
 			btns[x].setContentAreaFilled(false);
 			btns[x].addActionListener(listener);
+			btns[x].setToolTipText("I'm Alive!");
 			rowColumns.add( new Boolean( true ) );
 			panel.add(btns[x]);
 		}
@@ -88,7 +89,7 @@ public class GamePanels {
 	
 	public JPanel buttonPanel() {
 		
-		JPanel btnPanel = new JPanel(new GridLayout(1, 2, 15, 15));
+		JPanel btnPanel = new JPanel(new GridLayout(1, 2, 25, 25));
 		stepForewardBtn = new JButton("<html><CENTER><b>STEP FOREWARD<br>THROUGH CELL LIFE</b></CENTER></html>");
 		stepForewardBtn.addActionListener(listener); 
 		stepBackwardBtn = new JButton("<html><CENTER><b>STEP BACKWARD<br>THROUGH CELL LIFE</b></CENTER></html>");
@@ -117,9 +118,11 @@ public class GamePanels {
         			
         			if ( (ae.getSource() == btns[x]) && (biDirectionalMemoryRows.get(currentLife).get(x) == true) ) {
     					btns[x].setIcon( dead );
+    					btns[x].setToolTipText("I'm Dead!");
     					biDirectionalMemoryRows.get(currentLife).set(x, false);
     				} else if ( (ae.getSource() == btns[x]) && (biDirectionalMemoryRows.get(currentLife).get(x) == false) ) {
     					btns[x].setIcon( live );
+    					btns[x].setToolTipText("I'm Alive!");
     					biDirectionalMemoryRows.get(currentLife).set(x, true );
     				}
     			}	
@@ -174,6 +177,7 @@ public class GamePanels {
 		
 		for ( int x = 0; x < btns.length; x++ ) {
 			btns[x].setIcon(live);
+			btns[x].setToolTipText("I'm Alive!");
 			rowColumns.add( new Boolean( true ) );
 		}
 		biDirectionalMemoryRows.add( rowColumns );
@@ -199,9 +203,11 @@ public class GamePanels {
 		
 			if ( newResults[x] == true ) {
 				btns[x].setIcon(live);
+				btns[x].setToolTipText("I'm Alive!");
 				rowColumns.add( new Boolean( true ) );
 			} else {
 				btns[x].setIcon(dead);
+				btns[x].setToolTipText("I'm Dead!");
 				rowColumns.add( new Boolean( false ) );
 			}
 		}	
@@ -218,8 +224,10 @@ public class GamePanels {
 			
 			if ( preBit == true ) {
 				btns[y].setIcon(live);
+				btns[y].setToolTipText("I'm Alive!");
 			} else {
 				btns[y].setIcon(dead);
+				btns[y].setToolTipText("I'm Dead!");
 			}
 		}
 	}
